@@ -1,7 +1,7 @@
 {
-  "name": "social-video-downloader",
+  "name": "video-downloader",
   "version": "1.0.0",
-  "description": "Download Facebook and Instagram Videos",
+  "description": "Facebook Instagram Video Downloader",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -10,8 +10,5 @@
     "express": "^4.18.2",
     "axios": "^1.5.0",
     "cheerio": "^1.0.0-rc.12"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }
