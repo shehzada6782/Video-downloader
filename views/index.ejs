@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh; 
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 { 
+            text-align: center; 
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group { margin-bottom: 20px; }
+        input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { background: #764ba2; }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #c62828;
+        }
+        .success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid #2e7d32;
+        }
+        .video-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .download-link {
+            display: block;
+            background: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        .download-link:hover {
+            background: #45a049;
+        }
+        .instructions {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Video Downloader</h1>
+        <p style="text-align: center; margin-bottom: 20px; color: #666;">
+            Download Facebook & Instagram Videos
+        </p>
+
+        <form action="/download" method="POST">
+            <div class="form-group">
+                <input 
+                    type="url" 
+                    name="videoUrl" 
+                    placeholder="Paste Facebook or Instagram video URL here..." 
+                    required
+                >
+            </div>
+            <button type="submit">🚀 Download Video</button>
+        </form>
+
+        <% if (error) { %>
+            <div class="error">
+                <strong>Error:</strong> <%= error %>
+            </div>
+        <% } %>
+
+        <% if (success) { %>
+            <div class="success">
+                <strong>Success!</strong> <%= success %>
+            </div>
+        <% } %>
+
+        <% if (videoInfo) { %>
+            <div class="video-info">
+                <h3>📹 Video Found</h3>
+                <p><strong>Platform:</strong> <%= videoInfo.platform %></p>
+                <p><strong>Title:</strong> <%= videoInfo.title %></p>
+                <% if (videoInfo.thumbnail) { %>
+                    <img src="<%= videoInfo.thumbnail %>" style="max-width: 100%; border-radius: 5px; margin-top: 10px;" onerror="this.style.display='none'">
+                <% } %>
+            </div>
+        <% } %>
+
+        <% if (downloadLinks && downloadLinks.length > 0) { %>
+            <div style="margin-top: 20px;">
+                <h3>📥 Download Links:</h3>
+                <% downloadLinks.forEach(link => { %>
+                    <a href="<%= link.url %>" class="download-link" target="_blank" download>
+                        ⬇️ Download <%= link.quality %> Quality
+                    </a>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <div class="instructions">
+            <h4>📋 How to Use:</h4>
+            <ol>
+                <li>Copy Facebook/Instagram video URL</li>
+                <li>Paste in the input field above</li>
+                <li>Click Download button</li>
+                <li>Click the download link that appears</li>
+            </ol>
+            <p><strong>Note:</strong> Only public videos can be downloaded.</p>
+        </div>
+    </div>
+</body>
+</html>
