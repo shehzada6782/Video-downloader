@@ -6,9 +6,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Middleware - ERROR FIXED: Extra bracket removed
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json()));
+app.use(express.json()); // ✅ YEH LINE FIX HOGAYI
 app.use(express.static('public'));
 
 // Set view engine
